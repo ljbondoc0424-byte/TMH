@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tamaraw Marketing Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #050508;
+      --deep: #0a0a12;
+      --card: #10101a;
+      --border: rgba(255,255,255,0.07);
+      --white: #f5f5f0;
+      --muted: rgba(245,245,240,0.45);
+      --accent: #ff3b3b;
+      --gold: #f5c842;
+      --blue: #1a8cff;
+      --grad: linear-gradient(135deg, #ff3b3b 0%, #f5c842 100%);
+      --grad2: linear-gradient(135deg, #1a8cff 0%, #ff3b3b 100%);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: normal;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1.5px solid rgba(255,59,59,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%,-50%);
+      transition: transform 0.15s ease, width 0.3s, height 0.3s;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 24px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(5,5,8,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(2px);
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo span { color: var(--white); -webkit-text-fill-color: var(--white); }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta {
+      background: var(--accent);
+      color: var(--white) !important;
+      padding: 10px 24px;
+      border-radius: 2px;
+      font-weight: 600 !important;
+      letter-spacing: 1px !important;
+      transition: background 0.3s !important;
+    }
+    .nav-cta:hover { background: #ff1a1a !important; color: var(--white) !important; }
+
+    /* PAGES */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ==================== HOME PAGE ==================== */
+    #home {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* BG GRID */
+    .bg-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,59,59,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,59,59,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 160px 60px 80px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,59,59,0.1);
+      border: 1px solid rgba(255,59,59,0.25);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 40px;
+      width: fit-content;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(70px, 10vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 2px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+    .hero h1 .outline {
+      -webkit-text-stroke: 2px rgba(255,255,255,0.25);
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .hero h1 .accent-word {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      max-width: 520px;
+      margin-top: 36px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 16px; margin-top: 48px;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent);
+      color: var(--white);
+      padding: 16px 36px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(255,59,59,0.4);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 16px 36px;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: border-color 0.3s, color 0.3s;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+    /* FLOATING STATS */
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 80px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 1s 0.4s ease both;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* SCROLLING MARQUEE */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      background: var(--deep);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-track span {
+      white-space: nowrap;
+      padding: 0 40px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 4px;
+      color: var(--muted);
+    }
+    .marquee-track span.sep {
+      color: var(--accent);
+      padding: 0 10px;
+    }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* SERVICES PREVIEW */
+    .section { padding: 100px 60px; }
+    .section-label {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 11px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 24px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; max-width: 60px;
+      height: 1px; background: var(--accent);
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-bottom: 60px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--card);
+      padding: 48px 36px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s;
+      cursor: pointer;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 0.04; }
+    .service-icon {
+      font-size: 36px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .service-num {
+      position: absolute; top: 24px; right: 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+    }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      position: relative;
+    }
+
+    /* WHY US */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .why-visual {
+      position: relative;
+      height: 500px;
+    }
+    .why-box {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+    }
+    .why-box.main {
+      inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      background: var(--deep);
+      overflow: hidden;
+    }
+    .why-box.main::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(255,59,59,0.15) 0%, transparent 70%);
+    }
+    .why-box.floating {
+      top: 30px; right: -30px;
+      width: 180px;
+      background: var(--gold);
+      color: var(--black);
+      z-index: 2;
+    }
+    .why-box.floating .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--black);
+    }
+    .why-box.floating p { font-size: 12px; color: rgba(0,0,0,0.7); font-weight: 600; }
+
+    .why-points { display: flex; flex-direction: column; gap: 28px; }
+    .why-point {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    .why-point:hover { border-color: rgba(255,59,59,0.3); }
+    .why-point-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,59,59,0.1);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .why-point h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+    .why-point p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* CTA BAND */
+    .cta-band {
+      margin: 0 60px 60px;
+      background: var(--grad);
+      padding: 70px 60px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: 'TMH';
+      position: absolute;
+      right: -20px; bottom: -40px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 200px;
+      color: rgba(0,0,0,0.12);
+      line-height: 1;
+    }
+    .cta-band h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--black);
+      line-height: 1.1;
+    }
+    .btn-dark {
+      background: var(--black);
+      color: var(--white);
+      padding: 18px 44px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: transform 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-dark:hover { transform: scale(1.03); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    /* TAMARAW ANIMATION */
+    .tamaraw-wrap {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 480px;
+      height: 480px;
+      z-index: 2;
+      animation: tamarawFloat 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes tamarawFloat {
+      0%,100% { transform: translateY(-50%) translateY(0px); }
+      50%      { transform: translateY(-50%) translateY(-18px); }
+    }
+    .tamaraw-glow {
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at 55% 60%, rgba(255,59,59,0.18) 0%, rgba(245,200,66,0.08) 40%, transparent 70%);
+      border-radius: 50%;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50%      { opacity: 1;   transform: scale(1.08); }
+    }
+    /* Tail wag */
+    @keyframes tailWag {
+      0%,100% { transform-origin: top left; transform: rotate(-8deg); }
+      50%      { transform-origin: top left; transform: rotate(14deg); }
+    }
+    /* Breathe (body scale) */
+    @keyframes breathe {
+      0%,100% { transform: scaleY(1); }
+      50%      { transform: scaleY(1.03); }
+    }
+    /* Eye glow blink */
+    @keyframes eyeGlow {
+      0%,90%,100% { opacity:1; r: 5; }
+      95%          { opacity:0.1; r: 2; }
+    }
+    /* Particle float */
+    @keyframes particle {
+      0%   { transform: translateY(0) translateX(0); opacity:0.8; }
+      100% { transform: translateY(-80px) translateX(20px); opacity:0; }
+    }
+    /* Horn shimmer */
+    @keyframes hornShimmer {
+      0%,100% { filter: drop-shadow(0 0 4px rgba(245,200,66,0.4)); }
+      50%      { filter: drop-shadow(0 0 14px rgba(245,200,66,0.9)); }
+    }
+    .tamaraw-svg { width:100%; height:100%; overflow:visible; }
+    .tamaraw-body-group { animation: breathe 3s ease-in-out infinite; transform-origin: center 60%; }
+    .tamaraw-tail    { animation: tailWag 1.4s ease-in-out infinite; }
+    .tamaraw-horns   { animation: hornShimmer 2.5s ease-in-out infinite; }
+    .p1 { animation: particle 2.2s ease-out infinite 0s; }
+    .p2 { animation: particle 2.2s ease-out infinite 0.5s; }
+    .p3 { animation: particle 2.2s ease-out infinite 1.1s; }
+    .p4 { animation: particle 2.2s ease-out infinite 1.7s; }
+
+    @media (max-width: 1100px) { .tamaraw-wrap { width:320px; height:320px; right:20px; } }
+    @media (max-width: 900px)  { .tamaraw-wrap { display:none; } }
+
+    /* ==================== SERVICES PAGE ==================== */
+    #services { background: var(--black); }
+    .page-hero {
+      padding: 160px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 70% 50%, rgba(255,59,59,0.08) 0%, transparent 70%);
+    }
+    .page-hero-label {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(50px, 8vw, 100px);
+      line-height: 0.95;
+      position: relative;
+    }
+    .page-hero p {
+      max-width: 540px; font-size: 15px; color: var(--muted);
+      line-height: 1.8; margin-top: 28px; position: relative;
+    }
+
+    .services-full {
+      padding: 0 60px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .service-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 160px;
+      align-items: center;
+      gap: 40px;
+      padding: 36px 40px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: pointer;
+    }
+    .service-row:hover {
+      border-color: rgba(255,59,59,0.3);
+      background: rgba(255,59,59,0.03);
+    }
+    .service-row-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: var(--accent);
+    }
+    .service-row-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .service-row-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .service-row-tag {
+      background: rgba(255,59,59,0.1);
+      border: 1px solid rgba(255,59,59,0.2);
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 100px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .packages {
+      padding: 0 60px 100px;
+    }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .pkg-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 48px 36px;
+      position: relative;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .pkg-card.featured {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-12px);
+    }
+    .pkg-card.featured .pkg-price,
+    .pkg-card.featured .pkg-name,
+    .pkg-card.featured .pkg-desc,
+    .pkg-card.featured .pkg-features li {
+      color: var(--white) !important;
+    }
+    .pkg-card:not(.featured):hover { transform: translateY(-4px); border-color: rgba(255,59,59,0.3); }
+    .pkg-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+    }
+    .pkg-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .pkg-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      color: var(--white);
+      line-height: 1;
+    }
+    .pkg-price span { font-size: 20px; }
+    .pkg-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 16px 0 28px;
+      line-height: 1.7;
+    }
+    .pkg-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .pkg-features li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pkg-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pkg-card.featured .pkg-features li::before { color: var(--gold); }
+    .pkg-btn {
+      width: 100%;
+      padding: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    .pkg-btn:hover { background: rgba(255,255,255,0.15); }
+    .pkg-card.featured .pkg-btn {
+      background: var(--black);
+      border-color: var(--black);
+    }
+
+    /* ==================== ABOUT PAGE ==================== */
+    #about { background: var(--black); }
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .about-hero-left {
+      padding: 160px 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-hero-right {
+      background: var(--deep);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero-right::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,200,66,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .manifesto {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.4;
+      position: relative;
+    }
+    .manifesto .hl { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .manifesto-sub {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .team-section {
+      padding: 80px 60px;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .team-avatar {
+      height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 72px;
+      background: var(--deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .team-avatar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--grad);
+      opacity: 0.1;
+    }
+    .team-info { padding: 24px; }
+    .team-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    .team-role {
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .team-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    .values-section {
+      padding: 0 60px 100px;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+    .value-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 44px;
+      display: flex; gap: 24px;
+    }
+    .value-icon {
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+    .value-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .value-card p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+    /* ==================== CONTACT PAGE ==================== */
+    #contact { background: var(--black); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+    .contact-left {
+      padding: 160px 60px 80px;
+      background: var(--deep);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-right {
+      padding: 160px 60px 80px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contact-info {
+      display: flex; flex-direction: column; gap: 32px; margin-top: 48px;
+    }
+    .contact-item {
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .contact-item-icon {
+      width: 48px; height: 48px;
+      background: rgba(255,59,59,0.1);
+      border: 1px solid rgba(255,59,59,0.2);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .contact-item-label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .contact-item-val { font-size: 15px; color: var(--white); font-weight: 500; }
+    .contact-item-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* FORM */
+    .form-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .form-sub { font-size: 14px; color: var(--muted); margin-bottom: 40px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .form-group label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 14px 18px;
+      font-size: 14px;
+      font-family: 'Manrope', sans-serif;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+    .form-group select option { background: var(--card); }
+    .form-submit {
+      width: 100%;
+      padding: 18px;
+      background: var(--accent);
+      border: none;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: transform 0.2s, box-shadow 0.3s;
+      margin-top: 8px;
+    }
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(255,59,59,0.4);
+    }
+    .success-msg {
+      display: none;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: #4ade80;
+      padding: 16px 24px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 3px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 12px; color: var(--muted);
+      text-decoration: none; letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 24px 60px; }
+      .hero-stats { flex-wrap: wrap; gap: 28px; }
+      .section { padding: 60px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-visual { display: none; }
+      .cta-band { flex-direction: column; gap: 24px; text-align: center; margin: 0 24px 40px; padding: 48px 32px; }
+      .page-hero { padding: 120px 24px 60px; }
+      .services-full { padding: 0 24px 60px; }
+      .service-row { grid-template-columns: 1fr; gap: 12px; }
+      .service-row-num { display: none; }
+      .packages { padding: 0 24px 60px; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .pkg-card.featured { transform: none; }
+      .about-hero-grid { grid-template-columns: 1fr; }
+      .about-hero-left { padding: 120px 24px 40px; }
+      .about-hero-right { padding: 40px 24px; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .team-section { padding: 60px 24px; }
+      .values-section { padding: 0 24px 60px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-left { padding: 120px 24px 60px; }
+      .contact-right { padding: 60px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Tamaraw <span style="-webkit-text-fill-color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;">Marketing Hub</span></div>
+    <ul class="nav-links">
+      <li><a href="#" class="active" onclick="showPage('home',this)">Home</a></li>
+      <li><a href="#" onclick="showPage('services',this)">Services</a></li>
+      <li><a href="#" onclick="showPage('about',this)">About</a></li>
+      <li><a href="#" class="nav-cta" onclick="showPage('contact',this)">Makipag-ugnayan</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== HOME ==================== -->
+  <div class="page active" id="home">
+    <div class="bg-grid"></div>
+    <section class="hero" style="position:relative;">
+
+      <!-- ANIMATED TAMARAW -->
+      <div class="tamaraw-wrap">
+        <div class="tamaraw-glow"></div>
+        <svg class="tamaraw-svg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
+              <stop offset="0%" stop-color="#3a2a1a"/>
+              <stop offset="100%" stop-color="#1a0f08"/>
+            </radialGradient>
+            <radialGradient id="bodySheen" cx="35%" cy="30%" r="40%">
+              <stop offset="0%" stop-color="#5a3a22" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#1a0f08" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="eyeGrad" cx="50%" cy="30%" r="50%">
+              <stop offset="0%" stop-color="#ff8c00"/>
+              <stop offset="60%" stop-color="#ff3b3b"/>
+              <stop offset="100%" stop-color="#8b0000"/>
+            </radialGradient>
+            <radialGradient id="noseGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#5a2a1a"/>
+              <stop offset="100%" stop-color="#2a1008"/>
+            </radialGradient>
+            <linearGradient id="hornGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#c8a000"/>
+              <stop offset="100%" stop-color="#fff0a0"/>
+            </linearGradient>
+            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="softShadow" x="-10%" y="-5%" width="120%" height="130%">
+              <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#ff3b3b" flood-opacity="0.25"/>
+            </filter>
+            <filter id="hornGlow">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- SHADOW ON GROUND -->
+          <ellipse cx="240" cy="430" rx="120" ry="16" fill="rgba(255,59,59,0.12)" style="animation:glowPulse 3s ease-in-out infinite"/>
+
+          <!-- MAIN BODY GROUP (breathing) -->
+          <g class="tamaraw-body-group" filter="url(#softShadow)">
+
+            <!-- TAIL -->
+            <g class="tamaraw-tail">
+              <path d="M 370 240 Q 420 210 415 170 Q 412 155 425 148" stroke="#3a2a1a" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <path d="M 425 148 Q 435 138 430 128 Q 428 122 420 125" stroke="#2a1a0a" stroke-width="7" fill="none" stroke-linecap="round"/>
+              <!-- Tuft -->
+              <ellipse cx="422" cy="122" rx="10" ry="7" fill="#1a0f08" transform="rotate(-30 422 122)"/>
+              <ellipse cx="430" cy="118" rx="7" ry="5" fill="#2a1808" transform="rotate(-15 430 118)"/>
+            </g>
+
+            <!-- HIND LEGS -->
+            <rect x="300" y="330" width="30" height="80" rx="12" fill="#2a1a0a"/>
+            <rect x="340" y="320" width="30" height="85" rx="12" fill="#251508"/>
+            <!-- Hooves -->
+            <rect x="298" y="398" width="34" height="16" rx="6" fill="#111"/>
+            <rect x="338" y="408" width="34" height="16" rx="6" fill="#111"/>
+
+            <!-- FRONT LEGS -->
+            <rect x="140" y="330" width="30" height="85" rx="12" fill="#2a1a0a"/>
+            <rect x="175" y="335" width="30" height="80" rx="12" fill="#251508"/>
+            <!-- Hooves -->
+            <rect x="138" y="403" width="34" height="16" rx="6" fill="#111"/>
+            <rect x="173" y="403" width="34" height="16" rx="6" fill="#111"/>
+
+            <!-- BODY -->
+            <ellipse cx="240" cy="295" rx="145" ry="95" fill="url(#bodyGrad)"/>
+            <ellipse cx="240" cy="295" rx="145" ry="95" fill="url(#bodySheen)"/>
+
+            <!-- HUMP (Tamaraw feature) -->
+            <ellipse cx="215" cy="208" rx="60" ry="38" fill="#2e1c0e"/>
+            <ellipse cx="215" cy="210" rx="52" ry="28" fill="#3a2416"/>
+
+            <!-- NECK -->
+            <path d="M 175 255 Q 155 235 148 210 Q 145 195 158 185 Q 175 175 195 180 Q 215 185 218 205 Q 220 225 210 245 Z" fill="#2e1c0e"/>
+
+            <!-- HEAD -->
+            <ellipse cx="155" cy="195" rx="72" ry="60" fill="url(#bodyGrad)"/>
+            <ellipse cx="155" cy="195" rx="72" ry="60" fill="url(#bodySheen)" opacity="0.5"/>
+
+            <!-- FOREHEAD RIDGE (Tamaraw feature) -->
+            <path d="M 115 160 Q 148 145 180 158 Q 185 162 182 168 Q 148 155 118 168 Z" fill="#1a0f08" opacity="0.7"/>
+
+            <!-- MUZZLE -->
+            <ellipse cx="100" cy="210" rx="42" ry="30" fill="url(#noseGrad)"/>
+            <ellipse cx="100" cy="215" rx="32" ry="22" fill="#2a1208"/>
+            <!-- Nostrils -->
+            <ellipse cx="90" cy="215" rx="6" ry="4" fill="#0a0504" transform="rotate(-10 90 215)"/>
+            <ellipse cx="110" cy="215" rx="6" ry="4" fill="#0a0504" transform="rotate(10 110 215)"/>
+            <!-- Nostril sheen -->
+            <ellipse cx="88" cy="213" rx="2" ry="1.5" fill="rgba(255,120,60,0.25)"/>
+            <ellipse cx="108" cy="213" rx="2" ry="1.5" fill="rgba(255,120,60,0.25)"/>
+
+            <!-- MOUTH line -->
+            <path d="M 78 228 Q 100 234 122 228" stroke="#1a0a04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+            <!-- EAR LEFT -->
+            <ellipse cx="108" cy="148" rx="16" ry="22" fill="#2a1a0a" transform="rotate(-20 108 148)"/>
+            <ellipse cx="109" cy="150" rx="9" ry="14" fill="#5a2820" transform="rotate(-20 109 150)"/>
+
+            <!-- EAR RIGHT -->
+            <ellipse cx="192" cy="145" rx="14" ry="20" fill="#2a1a0a" transform="rotate(15 192 145)"/>
+            <ellipse cx="191" cy="147" rx="8" ry="12" fill="#5a2820" transform="rotate(15 191 147)"/>
+
+            <!-- HORNS (iconic Tamaraw curved-down horns) -->
+            <g class="tamaraw-horns" filter="url(#hornGlow)">
+              <!-- Left horn: curves outward-downward then tips up -->
+              <path d="M 125 152 Q 88 132 72 115 Q 60 100 68 88 Q 74 80 82 86 Q 76 96 86 108 Q 100 122 120 140 Z" fill="url(#hornGrad)"/>
+              <path d="M 125 152 Q 88 132 72 115 Q 60 100 68 88 Q 74 80 82 86 Q 76 96 86 108 Q 100 122 120 140 Z" fill="rgba(255,220,80,0.18)"/>
+              <!-- Right horn -->
+              <path d="M 180 148 Q 215 128 232 110 Q 244 96 238 84 Q 232 76 224 82 Q 230 92 222 104 Q 210 118 188 136 Z" fill="url(#hornGrad)"/>
+              <path d="M 180 148 Q 215 128 232 110 Q 244 96 238 84 Q 232 76 224 82 Q 230 92 222 104 Q 210 118 188 136 Z" fill="rgba(255,220,80,0.18)"/>
+              <!-- Horn tips glow dots -->
+              <circle cx="73" cy="86" r="4" fill="#fff0a0" opacity="0.7" filter="url(#glow)"/>
+              <circle cx="232" cy="82" r="4" fill="#fff0a0" opacity="0.7" filter="url(#glow)"/>
+            </g>
+
+            <!-- EYE -->
+            <circle cx="132" cy="185" r="15" fill="#0a0504"/>
+            <circle cx="132" cy="185" r="11" fill="url(#eyeGrad)" filter="url(#glow)"/>
+            <circle cx="132" cy="185" r="6" fill="#0a0000"/>
+            <!-- Eye glow ring -->
+            <circle cx="132" cy="185" r="13" fill="none" stroke="#ff6020" stroke-width="1.5" opacity="0.6" style="animation:eyeGlow 4s ease-in-out infinite"/>
+            <!-- Eye highlight -->
+            <circle cx="127" cy="180" r="3" fill="rgba(255,200,100,0.7)"/>
+            <circle cx="136" cy="181" r="1.5" fill="rgba(255,255,200,0.5)"/>
+
+            <!-- FUR texture lines on body -->
+            <path d="M 200 240 Q 210 255 205 270" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M 240 230 Q 252 248 248 265" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M 280 235 Q 290 252 286 268" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <path d="M 170 260 Q 178 278 175 295" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+            <!-- DEWLAP (chin fold) -->
+            <path d="M 118 222 Q 100 238 108 252 Q 118 262 132 255 Q 125 242 128 228 Z" fill="#241408" opacity="0.7"/>
+
+          </g><!-- end body group -->
+
+          <!-- FLOATING ENERGY PARTICLES -->
+          <g opacity="0.85">
+            <circle class="p1" cx="370" cy="320" r="5" fill="#ff3b3b" filter="url(#glow)"/>
+            <circle class="p2" cx="395" cy="280" r="3.5" fill="#f5c842" filter="url(#glow)"/>
+            <circle class="p3" cx="350" cy="350" r="4" fill="#ff6b35" filter="url(#glow)"/>
+            <circle class="p4" cx="410" cy="310" r="3" fill="#fff0a0" filter="url(#glow)"/>
+          </g>
+
+          <!-- GROUND ENERGY RING -->
+          <ellipse cx="240" cy="428" rx="100" ry="10" fill="none" stroke="rgba(255,59,59,0.3)" stroke-width="2" style="animation:glowPulse 2s ease-in-out infinite"/>
+          <ellipse cx="240" cy="428" rx="70" ry="6" fill="none" stroke="rgba(245,200,66,0.2)" stroke-width="1.5" style="animation:glowPulse 2s ease-in-out infinite 0.5s"/>
+
+        </svg>
+      </div>
+
+      <div class="hero-tag">🔥 #1 Marketing Hub sa Pilipinas</div>
+      <h1>
+        GROW<br>
+        YOUR<br>
+        <span class="accent-word">BRAND.</span><br>
+        <span class="outline">DOMINATE.</span>
+      </h1>
+      <p class="hero-sub">
+        Handa ka na bang i-level up ang iyong negosyo? Sa <strong>Tamaraw Marketing Hub</strong>, 
+        ginagawa naming posible ang imposible — mula sa digital strategy hanggang full-blown campaigns 
+        na may resulta.
+      </p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('contact',null)">
+          ✦ Simulan Na Natin
+        </a>
+        <a href="#" class="btn-secondary" onclick="showPage('services',null)">
+          Tingnan ang Services →
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Clients Served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">₱2B+</div>
+          <div class="stat-label">Revenue Generated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Client Retention</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">7 Yrs</div>
+          <div class="stat-label">In the Game</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span>SOCIAL MEDIA MARKETING</span><span class="sep">✦</span>
+        <span>BRANDING & IDENTITY</span><span class="sep">✦</span>
+        <span>SEO & CONTENT</span><span class="sep">✦</span>
+        <span>PAID ADS</span><span class="sep">✦</span>
+        <span>WEB DESIGN</span><span class="sep">✦</span>
+        <span>EMAIL CAMPAIGNS</span><span class="sep">✦</span>
+        <span>VIDEO PRODUCTION</span><span class="sep">✦</span>
+        <span>SOCIAL MEDIA MARKETING</span><span class="sep">✦</span>
+        <span>BRANDING & IDENTITY</span><span class="sep">✦</span>
+        <span>SEO & CONTENT</span><span class="sep">✦</span>
+        <span>PAID ADS</span><span class="sep">✦</span>
+        <span>WEB DESIGN</span><span class="sep">✦</span>
+        <span>EMAIL CAMPAIGNS</span><span class="sep">✦</span>
+        <span>VIDEO PRODUCTION</span><span class="sep">✦</span>
+      </div>
+    </div>
+
+    <!-- SERVICES PREVIEW -->
+    <section class="section">
+      <div class="section-label">Ano ang Offer Namin</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;">
+        <div>
+          <h2 class="section-title">Lahat ng Kailangan<br>ng iyong Brand</h2>
+          <p class="section-sub">End-to-end na marketing solutions para sa mga negosyante at malalaking kumpanya.</p>
+        </div>
+        <a href="#" class="btn-secondary" onclick="showPage('services',null)" style="margin-bottom:60px;">Lahat ng Services →</a>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <div class="service-icon">📱</div>
+          <h3>Social Media Management</h3>
+          <p>Papalakihin namin ang iyong followers at i-convert sa loyal customers. Content creation, scheduling, at community management — lahat kasama.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <div class="service-icon">🎯</div>
+          <h3>Paid Advertising</h3>
+          <p>Meta Ads, Google Ads, TikTok Ads — data-driven campaigns na siguradong may ROI. Walang basura, puro resulta.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <div class="service-icon">🔥</div>
+          <h3>Branding & Identity</h3>
+          <p>Logo, color palette, brand voice, at visual identity na magtatayo ng tiwala at magpapakilala sa iyong negosyo sa mundo.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <div class="service-icon">📝</div>
+          <h3>Content & SEO</h3>
+          <p>Blogs, videos, infographics — content na hindi lang maganda kundi hanap din ng Google. Top rank, mas maraming trapiko, mas maraming benta.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">05</span>
+          <div class="service-icon">💻</div>
+          <h3>Web Design & Dev</h3>
+          <p>Modernong website na fast, mobile-friendly, at optimized para mag-convert ng visitors sa buyers. First impression is everything.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">06</span>
+          <div class="service-icon">🎬</div>
+          <h3>Video Production</h3>
+          <p>Reels, commercials, product videos — cinematic quality na mag-abot ng message ng iyong brand sa pinakamabisang paraan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="section" style="background:var(--deep);margin:0;">
+      <div class="section-label">Bakit Tamaraw</div>
+      <div class="why-grid">
+        <div class="why-points">
+          <h2 class="section-title" style="margin-bottom:40px;">Hindi kami basta-basta. <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Resulta ang gusto namin.</span></h2>
+          <div class="why-point">
+            <div class="why-point-icon">⚡</div>
+            <div>
+              <h4>Mabilis at Mahusay</h4>
+              <p>Hindi kami nagpa-pa-arte. Kapag may deadline, tinutupad namin. On-time deliveries, every single time — walang excuse, walang delay.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon">📊</div>
+            <div>
+              <h4>Data-Driven Decisions</h4>
+              <p>Bawat galaw namin ay base sa data, hindi hula. Transparent reports at analytics para lagi kang updated sa performance ng campaign.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <div class="why-point-icon">🤝</div>
+            <div>
+              <h4>Partner, Hindi Vendor</h4>
+              <p>Tinatrato namin ang bawat kliyente bilang kapareho. Tagumpay mo, tagumpay namin. Lumalago kayo, lumalago kami.</p>
+            </div>
+          </div>
+        </div>
+        <div class="why-visual">
+          <div class="why-box main">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;">TAYO NA</div>
+            <div style="font-size:13px;color:var(--muted);position:relative;margin-top:8px;">Simulan ang iyong journey sa Tamaraw Marketing Hub</div>
+          </div>
+          <div class="why-box floating">
+            <div class="big-num">98%</div>
+            <p>Client Satisfaction Rate</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <div class="cta-band">
+      <div>
+        <h2>HANDA KA NA<br>BANG LUMAGO?</h2>
+        <p style="color:rgba(0,0,0,0.65);margin-top:10px;font-size:15px;">Libre ang consultation. Usap tayo ngayon.</p>
+      </div>
+      <a href="#" class="btn-dark" onclick="showPage('contact',null)">Makipag-ugnayan →</a>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Tamaraw Marketing Hub</div>
+      <div class="footer-copy">© 2025 Tamaraw Marketing Hub. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home',null)">Home</a>
+        <a href="#" onclick="showPage('services',null)">Services</a>
+        <a href="#" onclick="showPage('about',null)">About</a>
+        <a href="#" onclick="showPage('contact',null)">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==================== SERVICES ==================== -->
+  <div class="page" id="services">
+    <div class="page-hero" style="background:radial-gradient(ellipse 700px 400px at 70% 50%, rgba(255,59,59,0.07) 0%, transparent 70%);">
+      <div class="page-hero-label">✦ Ang Aming Mga Alok</div>
+      <h1 class="page-hero" style="padding:0;font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,8vw,100px);line-height:0.95;">
+        SERVICES NA<br>MAY <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">RESULTA</span>
+      </h1>
+      <p class="page-hero" style="padding:0;max-width:540px;font-size:15px;color:var(--muted);line-height:1.8;margin-top:28px;">
+        Bawat service namin ay dinisenyo para mag-deliver ng tunay na value — hindi lang magandang ipon, kundi actual na paglago ng iyong negosyo.
+      </p>
+    </div>
+
+    <div class="services-full">
+      <div class="service-row">
+        <div class="service-row-num">01</div>
+        <div class="service-row-name">📱 Social Media Management</div>
+        <div class="service-row-desc">Full-service management ng iyong social channels. Content creation, scheduling, engagement, at growth strategy para sa Facebook, Instagram, TikTok, at LinkedIn.</div>
+        <div class="service-row-tag">Monthly Retainer</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">02</div>
+        <div class="service-row-name">🎯 Paid Advertising</div>
+        <div class="service-row-desc">ROI-focused ad campaigns sa Meta, Google, TikTok, at Shopee Ads. A/B testing, audience targeting, at continuous optimization para sa maximum returns.</div>
+        <div class="service-row-tag">Project Based</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">03</div>
+        <div class="service-row-name">🔥 Branding & Identity</div>
+        <div class="service-row-desc">Logo design, brand guidelines, typography, color systems — lahat ng kailangan mo para magmukhang propesyonal at memorable ang iyong brand.</div>
+        <div class="service-row-tag">One-Time</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">04</div>
+        <div class="service-row-name">📝 Content Marketing & SEO</div>
+        <div class="service-row-desc">Blog articles, keyword research, on-page SEO, at link building — para nasa unahan ka ng Google results at organic ang dating ng trapiko mo.</div>
+        <div class="service-row-tag">Monthly Retainer</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">05</div>
+        <div class="service-row-name">💻 Website Design & Dev</div>
+        <div class="service-row-desc">Conversion-optimized websites na fast, responsive, at maganda. WordPress, Shopify, o custom — ayon sa kailangan ng iyong negosyo.</div>
+        <div class="service-row-tag">Project Based</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">06</div>
+        <div class="service-row-name">📧 Email Marketing</div>
+        <div class="service-row-desc">Automated email sequences, newsletters, at campaigns na nag-nu-nurture ng leads at nagko-convert ng subscribers sa paying customers.</div>
+        <div class="service-row-tag">Monthly Retainer</div>
+      </div>
+      <div class="service-row">
+        <div class="service-row-num">07</div>
+        <div class="service-row-name">🎬 Video Production</div>
+        <div class="service-row-desc">Reels, ads, product videos, at corporate films. Script to screen — lahat ng hahandles ng team namin para sa cinematic na output.</div>
+        <div class="service-row-tag">Project Based</div>
+      </div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="packages">
+      <div class="section-label">Mga Package</div>
+      <h2 class="section-title">Pumili ng<br>Tamang Plan</h2>
+      <p class="section-sub">Transparent ang aming pricing. Walang hidden fees, walang sorpresa — puro value lang.</p>
+      <div class="packages-grid">
+        <div class="pkg-card">
+          <div class="pkg-name">Starter</div>
+          <div class="pkg-price"><span>₱</span>15,000<span>/mo</span></div>
+          <div class="pkg-desc">Para sa mga bagong negosyo na gustong mag-start ng tama ang digital presence.</div>
+          <ul class="pkg-features">
+            <li>Social Media Management (2 platforms)</li>
+            <li>12 posts per month</li>
+            <li>Basic graphic design</li>
+            <li>Monthly performance report</li>
+            <li>Email support</li>
+          </ul>
+          <button class="pkg-btn" onclick="showPage('contact',null)">Simulan Na</button>
+        </div>
+        <div class="pkg-card featured">
+          <div class="pkg-badge">PINAKASIKAT</div>
+          <div class="pkg-name">Growth</div>
+          <div class="pkg-price"><span>₱</span>35,000<span>/mo</span></div>
+          <div class="pkg-desc">Ang best value package para sa mga negosyong handa nang lumakas at lumago.</div>
+          <ul class="pkg-features">
+            <li>Social Media (4 platforms)</li>
+            <li>20 posts + 8 stories per month</li>
+            <li>Paid Ads management (₱20K budget)</li>
+            <li>SEO basics + blog content (4/mo)</li>
+            <li>Bi-weekly strategy calls</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="pkg-btn" onclick="showPage('contact',null)">I-avail Ngayon</button>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-name">Enterprise</div>
+          <div class="pkg-price" style="font-size:40px;padding-top:12px;">Custom</div>
+          <div class="pkg-desc">Para sa malalaking kumpanya na may complex na marketing needs at mataas na target.</div>
+          <ul class="pkg-features">
+            <li>Full-scale digital marketing</li>
+            <li>Dedicated account manager</li>
+            <li>Unlimited ad budget management</li>
+            <li>Video production included</li>
+            <li>Weekly strategy sessions</li>
+            <li>24/7 VIP support</li>
+          </ul>
+          <button class="pkg-btn" onclick="showPage('contact',null)">Makipag-usap</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <div>
+        <h2>HINDI SIGURADO<br>KUNG ANO ANG KAILANGAN?</h2>
+        <p style="color:rgba(0,0,0,0.65);margin-top:10px;font-size:15px;">Libre ang consultation — tatawagan ka namin at bibigyan ng custom proposal.</p>
+      </div>
+      <a href="#" class="btn-dark" onclick="showPage('contact',null)">Free Consultation →</a>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Tamaraw Marketing Hub</div>
+      <div class="footer-copy">© 2025 Tamaraw Marketing Hub. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home',null)">Home</a>
+        <a href="#" onclick="showPage('services',null)">Services</a>
+        <a href="#" onclick="showPage('about',null)">About</a>
+        <a href="#" onclick="showPage('contact',null)">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==================== ABOUT ==================== -->
+  <div class="page" id="about">
+    <div class="about-hero-grid">
+      <div class="about-hero-left">
+        <div class="page-hero-label">✦ Ang Aming Kwento</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(50px,7vw,90px);line-height:0.95;margin-top:16px;">
+          TAMARAW:<br>MALAKAS,<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MABILIS,</span><br>WALANG HINTO
+        </h1>
+        <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-top:28px;max-width:460px;">
+          Tulad ng Tamaraw — ang pinakamatibay na hayop ng Pilipinas — kami ay tumitigil para sa walang bagay. 
+          Puno ng lakas, passion, at determinasyon na i-angat ang bawat brand na pinaglilingkuran namin.
+        </p>
+      </div>
+      <div class="about-hero-right">
+        <div class="manifesto">
+          "Ang Marketing ay hindi lang advertising — ito ay <span class="hl">pagbabago ng mundo</span> ng iyong brand, isa-isang kliyente."
+        </div>
+        <p class="manifesto-sub">
+          Naniniwala kami na ang bawat negosyo — malaki man o maliit — ay may karapatang mag-access ng world-class marketing. 
+          Iyan ang dahilan kung bakit nandito kami.
+        </p>
+        <div style="display:flex;gap:32px;margin-top:40px;">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">2017</div>
+            <div style="font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Itinatag</div>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);">Maynila</div>
+            <div style="font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Headquarters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="team-section">
+      <div class="section-label">Ang Aming Koponan</div>
+      <h2 class="section-title">Mga Taong<br>Nasa Likod ng Magic</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">👨‍💼</div>
+          <div class="team-info">
+            <div class="team-name">Carlos Reyes</div>
+            <div class="team-role">CEO & Founder</div>
+            <div class="team-desc">10+ taon sa marketing industry. Naniwala sa digital marketing bago pa ito naging mainstream sa Pilipinas.</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👩‍🎨</div>
+          <div class="team-info">
+            <div class="team-name">Maria Santos</div>
+            <div class="team-role">Creative Director</div>
+            <div class="team-desc">Award-winning designer na may mata para sa details at puso para sa storytelling. Bawat design, may kwento.</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👨‍💻</div>
+          <div class="team-info">
+            <div class="team-name">Rico Mendoza</div>
+            <div class="team-role">Head of Digital Ads</div>
+            <div class="team-desc">₱500M+ na ad spend na na-manage. Data nerd na palaging may paraan para palakasin ang ROI ng bawat campaign.</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">👩‍📊</div>
+          <div class="team-info">
+            <div class="team-name">Ana Cruz</div>
+            <div class="team-role">SEO & Content Lead</div>
+            <div class="team-desc">Content strategist at SEO expert. Kung sino ang unang lumalabas sa Google, siguradong may kamay siya doon.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="values-section">
+      <div class="section-label">Ang Aming Mga Halaga</div>
+      <h2 class="section-title">Ang Pinanghahawakan Namin</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🏆</div>
+          <div>
+            <h3>Excellence sa Lahat</h3>
+            <p>Hindi kami tumatanggap ng "pwede na." Bawat deliverable — mula sa simpleng post hanggang full campaign — ay ibinibigay namin ng buong husay at dedikasyon.</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">💡</div>
+          <div>
+            <h3>Inobasyon at Kreatividad</h3>
+            <p>Palagi kaming nag-iisip ng bagong paraan. Hindi kami nagiging kampante sa lumang formula — lagi kaming naghahanap ng mas magandang solusyon para sa aming mga kliyente.</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div>
+            <h3>Integridad at Transparency</h3>
+            <p>Walang pakulo, walang hidden fees, walang overpromise. Sinasabi namin ang katotohanan — kahit masakit — dahil ang tiwala mo ay mas mahalaga sa amin kaysa sa anumang kontrata.</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🚀</div>
+          <div>
+            <h3>Resulta ang Sukatan</h3>
+            <p>Ang magandang output ay maganda lang kung may resulta. Bawat strategy, bawat peso na ginagastos mo — ito ay dapat bumabalik sa iyo nang mas malaki. Iyan ang pangako namin.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <div>
+        <h2>SUMALI SA<br>TAMARAW FAMILY</h2>
+        <p style="color:rgba(0,0,0,0.65);margin-top:10px;font-size:15px;">500+ negosyo na ang nagtitiwala sa amin. Ikaw ang susunod.</p>
+      </div>
+      <a href="#" class="btn-dark" onclick="showPage('contact',null)">Magsimula Na →</a>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Tamaraw Marketing Hub</div>
+      <div class="footer-copy">© 2025 Tamaraw Marketing Hub. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home',null)">Home</a>
+        <a href="#" onclick="showPage('services',null)">Services</a>
+        <a href="#" onclick="showPage('about',null)">About</a>
+        <a href="#" onclick="showPage('contact',null)">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==================== CONTACT ==================== -->
+  <div class="page" id="contact">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="page-hero-label">✦ Makipag-ugnayan</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);line-height:0.95;margin-top:16px;">
+          USAP TAYO.<br><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">LIBRE</span><br>ANG CONSULT.
+        </h1>
+        <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-top:24px;max-width:380px;">
+          Huwag mag-atubili. Kahit anong tanong mo about sa marketing ng iyong negosyo — nandito kami para sagutin. 
+          Walang bayad, walang obligasyon.
+        </p>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Address</div>
+              <div class="contact-item-val">12F Ayala Avenue Tower, Makati City</div>
+              <div class="contact-item-sub">Metro Manila, Pilipinas</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div>
+              <div class="contact-item-label">Telepono</div>
+              <div class="contact-item-val">+63 917 123 4567</div>
+              <div class="contact-item-sub">Lunes–Sabado, 9AM–6PM</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-val">hello@tamarawmarketing.ph</div>
+              <div class="contact-item-sub">Reply within 24 hours</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">💬</div>
+            <div>
+              <div class="contact-item-label">Social Media</div>
+              <div class="contact-item-val">@TamarawMarketingHub</div>
+              <div class="contact-item-sub">FB, IG, TikTok, LinkedIn</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <div class="form-title">Mag-inquire Ngayon</div>
+        <div class="form-sub">Punan ang form at makikipag-ugnayan sa iyo ang aming team sa loob ng 24 oras.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pangalan *</label>
+            <input type="text" id="fname" placeholder="Juan dela Cruz" />
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="femail" placeholder="juan@example.com" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telepono</label>
+            <input type="text" id="fphone" placeholder="+63 9XX XXX XXXX" />
+          </div>
+          <div class="form-group">
+            <label>Pangalan ng Negosyo</label>
+            <input type="text" id="fbiz" placeholder="Ang iyong negosyo" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Anong Service ang Kailangan Mo?</label>
+          <select id="fservice">
+            <option value="">— Pumili ng Service —</option>
+            <option>Social Media Management</option>
+            <option>Paid Advertising (Meta/Google/TikTok)</option>
+            <option>Branding & Identity</option>
+            <option>Content Marketing & SEO</option>
+            <option>Website Design & Development</option>
+            <option>Video Production</option>
+            <option>Full-Package / Lahat ng Nabanggit</option>
+            <option>Hindi pa sigurado — gusto ng consultation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Kwentuhan Mo Kami ng Kaunti</label>
+          <textarea id="fmsg" rows="4" placeholder="Anong goals mo? Ano ang pinaka-challenge sa marketing ngayon? Puwede ring ibahagi ang budget range mo..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">
+          ✦ IPADALA ANG MESSAGE
+        </button>
+        <div class="success-msg" id="successMsg">
+          🎉 Salamat! Natanggap na namin ang iyong mensahe. Makikipag-ugnayan kami sa iyo sa loob ng 24 oras!
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Tamaraw Marketing Hub</div>
+      <div class="footer-copy">© 2025 Tamaraw Marketing Hub. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home',null)">Home</a>
+        <a href="#" onclick="showPage('services',null)">Services</a>
+        <a href="#" onclick="showPage('about',null)">About</a>
+        <a href="#" onclick="showPage('contact',null)">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx=0, my=0, rx=0, ry=0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx+'px'; cursor.style.top = my+'px';
+    });
+    function animateRing() {
+      rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+    document.querySelectorAll('a,button,.service-card,.service-row,.team-card,.why-point,.pkg-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '20px'; cursor.style.height = '20px';
+        ring.style.width = '60px'; ring.style.height = '60px';
+        ring.style.borderColor = 'rgba(255,59,59,0.7)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px'; cursor.style.height = '12px';
+        ring.style.width = '40px'; ring.style.height = '40px';
+        ring.style.borderColor = 'rgba(255,59,59,0.5)';
+      });
+    });
+
+    // PAGE NAV
+    function showPage(id, linkEl) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      if (linkEl) linkEl.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    // FORM SUBMIT
+    function handleSubmit() {
+      const name = document.getElementById('fname').value.trim();
+      const email = document.getElementById('femail').value.trim();
+      if (!name || !email) {
+        alert('Pakiusap punan ang iyong pangalan at email. 🙏');
+        return;
+      }
+      document.getElementById('successMsg').style.display = 'block';
+      document.querySelector('.form-submit').textContent = '✓ NAIPADALA NA!';
+      document.querySelector('.form-submit').style.background = '#22c55e';
+    }
+
+    // ANIMATE ON SCROLL (simple observer)
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.service-card, .service-row, .pkg-card, .team-card, .value-card, .why-point').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, background 0.3s';
+      obs.observe(el);
+    });
+  </script>
+</body>
+</html>
