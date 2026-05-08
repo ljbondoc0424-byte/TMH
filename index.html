@@ -1015,158 +1015,214 @@
     <div class="bg-grid"></div>
     <section class="hero" style="position:relative;">
 
-      <!-- ANIMATED TAMARAW -->
+      <!-- ANIMATED MODERN BULL -->
       <div class="tamaraw-wrap">
         <div class="tamaraw-glow"></div>
         <svg class="tamaraw-svg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
-              <stop offset="0%" stop-color="#3a2a1a"/>
-              <stop offset="100%" stop-color="#1a0f08"/>
-            </radialGradient>
-            <radialGradient id="bodySheen" cx="35%" cy="30%" r="40%">
-              <stop offset="0%" stop-color="#5a3a22" stop-opacity="0.6"/>
-              <stop offset="100%" stop-color="#1a0f08" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="eyeGrad" cx="50%" cy="30%" r="50%">
-              <stop offset="0%" stop-color="#ff8c00"/>
-              <stop offset="60%" stop-color="#ff3b3b"/>
+            <!-- Gradients -->
+            <linearGradient id="bullBody" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1a1a2e"/>
+              <stop offset="50%" stop-color="#16213e"/>
+              <stop offset="100%" stop-color="#0f0f1a"/>
+            </linearGradient>
+            <linearGradient id="bullAccent" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff3b3b"/>
+              <stop offset="100%" stop-color="#f5c842"/>
+            </linearGradient>
+            <linearGradient id="hornGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff3b3b"/>
+              <stop offset="100%" stop-color="#f5c842"/>
+            </linearGradient>
+            <linearGradient id="legGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#1e1e3a"/>
+              <stop offset="100%" stop-color="#0a0a14"/>
+            </linearGradient>
+            <radialGradient id="eyeCore" cx="40%" cy="35%" r="55%">
+              <stop offset="0%" stop-color="#ff6a00"/>
+              <stop offset="50%" stop-color="#ff3b3b"/>
               <stop offset="100%" stop-color="#8b0000"/>
             </radialGradient>
-            <radialGradient id="noseGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#5a2a1a"/>
-              <stop offset="100%" stop-color="#2a1008"/>
+            <radialGradient id="noseCore" cx="50%" cy="40%" r="55%">
+              <stop offset="0%" stop-color="#2a1a2e"/>
+              <stop offset="100%" stop-color="#0f0a14"/>
             </radialGradient>
-            <linearGradient id="hornGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#c8a000"/>
-              <stop offset="100%" stop-color="#fff0a0"/>
-            </linearGradient>
-            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+
+            <!-- Glow filters -->
+            <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <filter id="softShadow" x="-10%" y="-5%" width="120%" height="130%">
-              <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#ff3b3b" flood-opacity="0.25"/>
+            <filter id="strongGlow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <filter id="hornGlow">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+            <filter id="bodyGlow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#ff3b3b" flood-opacity="0.3"/>
+              <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ff3b3b" flood-opacity="0.1"/>
+            </filter>
+            <filter id="edgeGlow">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
 
-          <!-- SHADOW ON GROUND -->
-          <ellipse cx="240" cy="430" rx="120" ry="16" fill="rgba(255,59,59,0.12)" style="animation:glowPulse 3s ease-in-out infinite"/>
+          <!-- ======= GROUND SHADOW ======= -->
+          <ellipse cx="238" cy="438" rx="130" ry="14" fill="rgba(255,59,59,0.10)" style="animation:glowPulse 3s ease-in-out infinite"/>
+          <ellipse cx="238" cy="438" rx="90" ry="8" fill="rgba(245,200,66,0.07)" style="animation:glowPulse 3s ease-in-out infinite 0.6s"/>
 
-          <!-- MAIN BODY GROUP (breathing) -->
-          <g class="tamaraw-body-group" filter="url(#softShadow)">
+          <!-- ======= MAIN BULL GROUP (breathing) ======= -->
+          <g class="tamaraw-body-group" filter="url(#bodyGlow)">
 
-            <!-- TAIL -->
+            <!-- === TAIL === -->
             <g class="tamaraw-tail">
-              <path d="M 370 240 Q 420 210 415 170 Q 412 155 425 148" stroke="#3a2a1a" stroke-width="10" fill="none" stroke-linecap="round"/>
-              <path d="M 425 148 Q 435 138 430 128 Q 428 122 420 125" stroke="#2a1a0a" stroke-width="7" fill="none" stroke-linecap="round"/>
-              <!-- Tuft -->
-              <ellipse cx="422" cy="122" rx="10" ry="7" fill="#1a0f08" transform="rotate(-30 422 122)"/>
-              <ellipse cx="430" cy="118" rx="7" ry="5" fill="#2a1808" transform="rotate(-15 430 118)"/>
+              <!-- Tail base to tip - angular/modern -->
+              <polyline points="368,252 398,220 405,185 418,162" fill="none" stroke="url(#bullAccent)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+              <!-- Tail tuft - diamond shape -->
+              <polygon points="418,148 426,162 418,172 410,162" fill="url(#bullAccent)" opacity="0.9" filter="url(#edgeGlow)"/>
             </g>
 
-            <!-- HIND LEGS -->
-            <rect x="300" y="330" width="30" height="80" rx="12" fill="#2a1a0a"/>
-            <rect x="340" y="320" width="30" height="85" rx="12" fill="#251508"/>
-            <!-- Hooves -->
-            <rect x="298" y="398" width="34" height="16" rx="6" fill="#111"/>
-            <rect x="338" y="408" width="34" height="16" rx="6" fill="#111"/>
+            <!-- === HIND LEGS === -->
+            <!-- Left hind leg -->
+            <polygon points="290,330 308,330 312,365 318,395 318,418 286,418 286,395 292,365" fill="url(#legGrad)" stroke="rgba(255,59,59,0.2)" stroke-width="1"/>
+            <!-- hoof -->
+            <polygon points="282,416 322,416 325,430 279,430" fill="#0a0a18" stroke="rgba(255,59,59,0.35)" stroke-width="1.5"/>
+            <!-- leg edge accent line -->
+            <line x1="308" y1="330" x2="318" y2="418" stroke="rgba(255,59,59,0.25)" stroke-width="1"/>
 
-            <!-- FRONT LEGS -->
-            <rect x="140" y="330" width="30" height="85" rx="12" fill="#2a1a0a"/>
-            <rect x="175" y="335" width="30" height="80" rx="12" fill="#251508"/>
-            <!-- Hooves -->
-            <rect x="138" y="403" width="34" height="16" rx="6" fill="#111"/>
-            <rect x="173" y="403" width="34" height="16" rx="6" fill="#111"/>
+            <!-- Right hind leg -->
+            <polygon points="330,325 350,325 356,360 360,395 360,418 328,418 328,395 334,360" fill="url(#legGrad)" stroke="rgba(255,59,59,0.15)" stroke-width="1"/>
+            <polygon points="324,416 364,416 367,430 321,430" fill="#0a0a18" stroke="rgba(255,59,59,0.3)" stroke-width="1.5"/>
 
-            <!-- BODY -->
-            <ellipse cx="240" cy="295" rx="145" ry="95" fill="url(#bodyGrad)"/>
-            <ellipse cx="240" cy="295" rx="145" ry="95" fill="url(#bodySheen)"/>
+            <!-- === FRONT LEGS === -->
+            <!-- Left front leg -->
+            <polygon points="138,318 158,318 162,355 165,390 165,418 133,418 133,390 136,355" fill="url(#legGrad)" stroke="rgba(255,59,59,0.2)" stroke-width="1"/>
+            <polygon points="129,416 169,416 172,430 126,430" fill="#0a0a18" stroke="rgba(255,59,59,0.35)" stroke-width="1.5"/>
+            <!-- accent -->
+            <line x1="158" y1="318" x2="165" y2="418" stroke="rgba(245,200,66,0.2)" stroke-width="1"/>
 
-            <!-- HUMP (Tamaraw feature) -->
-            <ellipse cx="215" cy="208" rx="60" ry="38" fill="#2e1c0e"/>
-            <ellipse cx="215" cy="210" rx="52" ry="28" fill="#3a2416"/>
+            <!-- Right front leg -->
+            <polygon points="172,322 192,322 196,358 198,390 198,418 166,418 166,390 170,358" fill="url(#legGrad)" stroke="rgba(255,59,59,0.15)" stroke-width="1"/>
+            <polygon points="162,416 202,416 205,430 159,430" fill="#0a0a18" stroke="rgba(255,59,59,0.3)" stroke-width="1.5"/>
 
-            <!-- NECK -->
-            <path d="M 175 255 Q 155 235 148 210 Q 145 195 158 185 Q 175 175 195 180 Q 215 185 218 205 Q 220 225 210 245 Z" fill="#2e1c0e"/>
+            <!-- === MAIN BODY — low-poly geometric shape === -->
+            <!-- Body core polygon -->
+            <polygon points="100,310 108,240 148,205 210,192 270,195 330,205 375,230 385,300 375,360 320,385 165,385 110,360" fill="url(#bullBody)"/>
+            <!-- Body facets (low-poly shading) -->
+            <polygon points="108,240 148,205 210,192 175,265" fill="rgba(255,255,255,0.03)"/>
+            <polygon points="210,192 270,195 240,270 175,265" fill="rgba(255,255,255,0.025)"/>
+            <polygon points="270,195 330,205 310,270 240,270" fill="rgba(255,255,255,0.02)"/>
+            <polygon points="330,205 375,230 360,300 310,270" fill="rgba(0,0,0,0.1)"/>
+            <polygon points="100,310 108,240 175,265 150,330" fill="rgba(0,0,0,0.12)"/>
+            <polygon points="375,230 385,300 360,330 360,300" fill="rgba(0,0,0,0.15)"/>
+            <!-- Body glowing edge outline -->
+            <polygon points="100,310 108,240 148,205 210,192 270,195 330,205 375,230 385,300 375,360 320,385 165,385 110,360" fill="none" stroke="url(#bullAccent)" stroke-width="1.5" opacity="0.5" filter="url(#edgeGlow)"/>
+            <!-- Inner geometric lines - circuit-like -->
+            <polyline points="175,265 240,270 310,270 360,300" fill="none" stroke="rgba(255,59,59,0.12)" stroke-width="1"/>
+            <line x1="175" y1="265" x2="150" y2="330" stroke="rgba(255,59,59,0.1)" stroke-width="1"/>
+            <line x1="310" y1="270" x2="330" y2="340" stroke="rgba(255,59,59,0.1)" stroke-width="1"/>
+            <line x1="240" y1="270" x2="240" y2="385" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
 
-            <!-- HEAD -->
-            <ellipse cx="155" cy="195" rx="72" ry="60" fill="url(#bodyGrad)"/>
-            <ellipse cx="155" cy="195" rx="72" ry="60" fill="url(#bodySheen)" opacity="0.5"/>
+            <!-- === NECK — geometric trapezoid === -->
+            <polygon points="148,205 198,188 220,230 175,265 148,250" fill="url(#bullBody)"/>
+            <polygon points="148,205 198,188 220,230 175,265 148,250" fill="none" stroke="rgba(255,59,59,0.3)" stroke-width="1" filter="url(#edgeGlow)"/>
+            <!-- Neck muscle line -->
+            <line x1="168" y1="200" x2="185" y2="255" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
 
-            <!-- FOREHEAD RIDGE (Tamaraw feature) -->
-            <path d="M 115 160 Q 148 145 180 158 Q 185 162 182 168 Q 148 155 118 168 Z" fill="#1a0f08" opacity="0.7"/>
+            <!-- === HEAD — angular modern shape === -->
+            <!-- Head main polygon -->
+            <polygon points="84,228 98,172 132,148 178,152 200,170 205,210 195,240 165,258 125,258 96,244" fill="url(#bullBody)"/>
+            <!-- Head facets -->
+            <polygon points="98,172 132,148 155,185 120,195" fill="rgba(255,255,255,0.04)"/>
+            <polygon points="132,148 178,152 170,185 155,185" fill="rgba(255,255,255,0.035)"/>
+            <polygon points="178,152 200,170 190,200 170,185" fill="rgba(255,255,255,0.02)"/>
+            <polygon points="84,228 96,244 120,240 105,215" fill="rgba(0,0,0,0.15)"/>
+            <!-- Head outline glow -->
+            <polygon points="84,228 98,172 132,148 178,152 200,170 205,210 195,240 165,258 125,258 96,244" fill="none" stroke="url(#bullAccent)" stroke-width="1.5" opacity="0.55" filter="url(#edgeGlow)"/>
 
-            <!-- MUZZLE -->
-            <ellipse cx="100" cy="210" rx="42" ry="30" fill="url(#noseGrad)"/>
-            <ellipse cx="100" cy="215" rx="32" ry="22" fill="#2a1208"/>
-            <!-- Nostrils -->
-            <ellipse cx="90" cy="215" rx="6" ry="4" fill="#0a0504" transform="rotate(-10 90 215)"/>
-            <ellipse cx="110" cy="215" rx="6" ry="4" fill="#0a0504" transform="rotate(10 110 215)"/>
-            <!-- Nostril sheen -->
-            <ellipse cx="88" cy="213" rx="2" ry="1.5" fill="rgba(255,120,60,0.25)"/>
-            <ellipse cx="108" cy="213" rx="2" ry="1.5" fill="rgba(255,120,60,0.25)"/>
+            <!-- === SNOUT/MUZZLE === -->
+            <polygon points="76,222 88,205 112,205 124,222 118,242 82,242" fill="url(#noseCore)"/>
+            <polygon points="76,222 88,205 112,205 124,222 118,242 82,242" fill="none" stroke="rgba(255,59,59,0.4)" stroke-width="1.5"/>
+            <!-- Nostrils — hexagonal modern -->
+            <polygon points="86,218 92,213 98,218 96,226 88,226" fill="rgba(255,59,59,0.15)" stroke="rgba(255,59,59,0.5)" stroke-width="1"/>
+            <polygon points="103,218 109,213 115,218 113,226 105,226" fill="rgba(255,59,59,0.15)" stroke="rgba(255,59,59,0.5)" stroke-width="1"/>
+            <!-- Nostril glow dots -->
+            <circle cx="91" cy="219" r="2.5" fill="#ff3b3b" opacity="0.6" filter="url(#glow)"/>
+            <circle cx="109" cy="219" r="2.5" fill="#ff3b3b" opacity="0.6" filter="url(#glow)"/>
 
-            <!-- MOUTH line -->
-            <path d="M 78 228 Q 100 234 122 228" stroke="#1a0a04" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- === EARS === -->
+            <!-- Left ear — triangular modern -->
+            <polygon points="100,170 90,140 110,135 120,165" fill="#12122a" stroke="rgba(255,59,59,0.4)" stroke-width="1.5"/>
+            <polygon points="102,167 93,143 109,139 117,162" fill="rgba(255,59,59,0.08)"/>
+            <!-- Right ear -->
+            <polygon points="172,155 172,128 190,132 185,158" fill="#12122a" stroke="rgba(255,59,59,0.4)" stroke-width="1.5"/>
+            <polygon points="174,153 174,132 188,135 183,156" fill="rgba(255,59,59,0.06)"/>
 
-            <!-- EAR LEFT -->
-            <ellipse cx="108" cy="148" rx="16" ry="22" fill="#2a1a0a" transform="rotate(-20 108 148)"/>
-            <ellipse cx="109" cy="150" rx="9" ry="14" fill="#5a2820" transform="rotate(-20 109 150)"/>
+            <!-- === HORNS — bold sweeping modern === -->
+            <g class="tamaraw-horns" filter="url(#glow)">
+              <!-- Left horn — wide sweep outward and curling up -->
+              <path d="M 100,158 C 72,145 45,130 30,108 C 18,90 26,70 42,68 C 54,66 60,78 55,90 C 70,78 68,62 55,58 C 38,54 18,72 24,96 C 30,118 55,136 84,150 Z" fill="url(#hornGrad)" opacity="0.95"/>
+              <!-- Left horn inner dark -->
+              <path d="M 96,155 C 72,143 50,128 38,108 C 30,92 36,76 48,74 C 42,86 48,96 56,88 C 50,80 52,68 60,64 C 48,70 36,86 42,104 C 50,124 74,140 96,152 Z" fill="rgba(0,0,0,0.3)"/>
+              <!-- Left horn tip glow -->
+              <circle cx="36" cy="68" r="6" fill="#f5c842" opacity="0.9" filter="url(#strongGlow)"/>
+              <circle cx="36" cy="68" r="3" fill="#ffffff" opacity="0.7"/>
 
-            <!-- EAR RIGHT -->
-            <ellipse cx="192" cy="145" rx="14" ry="20" fill="#2a1a0a" transform="rotate(15 192 145)"/>
-            <ellipse cx="191" cy="147" rx="8" ry="12" fill="#5a2820" transform="rotate(15 191 147)"/>
+              <!-- Right horn — mirror sweep -->
+              <path d="M 178,153 C 208,140 236,125 250,103 C 262,85 254,65 238,63 C 226,61 220,73 225,85 C 210,73 212,57 225,53 C 242,49 262,67 256,91 C 250,113 225,131 196,145 Z" fill="url(#hornGrad)" opacity="0.95"/>
+              <!-- Right horn inner dark -->
+              <path d="M 180,150 C 206,137 230,122 242,102 C 250,86 244,70 232,68 C 238,80 232,90 224,82 C 230,74 228,62 220,58 C 232,64 244,80 238,98 C 230,118 206,134 184,146 Z" fill="rgba(0,0,0,0.3)"/>
+              <!-- Right horn tip glow -->
+              <circle cx="243" cy="63" r="6" fill="#f5c842" opacity="0.9" filter="url(#strongGlow)"/>
+              <circle cx="243" cy="63" r="3" fill="#ffffff" opacity="0.7"/>
 
-            <!-- HORNS (iconic Tamaraw curved-down horns) -->
-            <g class="tamaraw-horns" filter="url(#hornGlow)">
-              <!-- Left horn: curves outward-downward then tips up -->
-              <path d="M 125 152 Q 88 132 72 115 Q 60 100 68 88 Q 74 80 82 86 Q 76 96 86 108 Q 100 122 120 140 Z" fill="url(#hornGrad)"/>
-              <path d="M 125 152 Q 88 132 72 115 Q 60 100 68 88 Q 74 80 82 86 Q 76 96 86 108 Q 100 122 120 140 Z" fill="rgba(255,220,80,0.18)"/>
-              <!-- Right horn -->
-              <path d="M 180 148 Q 215 128 232 110 Q 244 96 238 84 Q 232 76 224 82 Q 230 92 222 104 Q 210 118 188 136 Z" fill="url(#hornGrad)"/>
-              <path d="M 180 148 Q 215 128 232 110 Q 244 96 238 84 Q 232 76 224 82 Q 230 92 222 104 Q 210 118 188 136 Z" fill="rgba(255,220,80,0.18)"/>
-              <!-- Horn tips glow dots -->
-              <circle cx="73" cy="86" r="4" fill="#fff0a0" opacity="0.7" filter="url(#glow)"/>
-              <circle cx="232" cy="82" r="4" fill="#fff0a0" opacity="0.7" filter="url(#glow)"/>
+              <!-- Horn base connector glow line -->
+              <line x1="100" y1="158" x2="178" y2="153" stroke="rgba(245,200,66,0.2)" stroke-width="2" filter="url(#edgeGlow)"/>
             </g>
 
-            <!-- EYE -->
-            <circle cx="132" cy="185" r="15" fill="#0a0504"/>
-            <circle cx="132" cy="185" r="11" fill="url(#eyeGrad)" filter="url(#glow)"/>
-            <circle cx="132" cy="185" r="6" fill="#0a0000"/>
-            <!-- Eye glow ring -->
-            <circle cx="132" cy="185" r="13" fill="none" stroke="#ff6020" stroke-width="1.5" opacity="0.6" style="animation:eyeGlow 4s ease-in-out infinite"/>
-            <!-- Eye highlight -->
-            <circle cx="127" cy="180" r="3" fill="rgba(255,200,100,0.7)"/>
-            <circle cx="136" cy="181" r="1.5" fill="rgba(255,255,200,0.5)"/>
+            <!-- === EYE — glowing hexagonal tech eye === -->
+            <!-- Outer hex ring -->
+            <polygon points="140,175 150,168 162,171 165,183 155,190 143,187" fill="#0a0a1a" stroke="rgba(255,100,0,0.6)" stroke-width="1.5" filter="url(#edgeGlow)"/>
+            <!-- Eye iris -->
+            <polygon points="142,177 150,172 160,175 162,183 154,188 145,185" fill="url(#eyeCore)"/>
+            <!-- Pupil -->
+            <polygon points="147,178 152,175 157,178 156,184 151,186 146,183" fill="#050508"/>
+            <!-- Eye glow core -->
+            <circle cx="152" cy="180" r="4" fill="#ff6a00" opacity="0.8" filter="url(#strongGlow)" style="animation:eyeGlow 4s ease-in-out infinite"/>
+            <!-- Highlight fleck -->
+            <circle cx="148" cy="176" r="2" fill="rgba(255,230,150,0.8)"/>
+            <!-- Scan line across eye -->
+            <line x1="138" y1="180" x2="167" y2="180" stroke="rgba(255,100,0,0.3)" stroke-width="0.8"/>
 
-            <!-- FUR texture lines on body -->
-            <path d="M 200 240 Q 210 255 205 270" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.5"/>
-            <path d="M 240 230 Q 252 248 248 265" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.5"/>
-            <path d="M 280 235 Q 290 252 286 268" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.4"/>
-            <path d="M 170 260 Q 178 278 175 295" stroke="#1a0f08" stroke-width="1.5" fill="none" opacity="0.4"/>
+            <!-- === GEOMETRIC CIRCUIT LINES on body === -->
+            <g opacity="0.18" stroke="url(#bullAccent)" fill="none" stroke-width="0.8">
+              <polyline points="200,230 220,250 200,270 180,250 200,230"/>
+              <line x1="200" y1="230" x2="200" y2="192"/>
+              <polyline points="280,240 300,260 280,280 260,260 280,240"/>
+              <line x1="280" y1="240" x2="280" y2="200"/>
+              <line x1="200" y1="260" x2="280" y2="260"/>
+            </g>
 
-            <!-- DEWLAP (chin fold) -->
-            <path d="M 118 222 Q 100 238 108 252 Q 118 262 132 255 Q 125 242 128 228 Z" fill="#241408" opacity="0.7"/>
+            <!-- === DEWLAP — angular chin flap === -->
+            <polygon points="112,242 130,238 135,258 128,272 110,268 104,254" fill="#0e0e20" stroke="rgba(255,59,59,0.25)" stroke-width="1"/>
 
           </g><!-- end body group -->
 
-          <!-- FLOATING ENERGY PARTICLES -->
-          <g opacity="0.85">
-            <circle class="p1" cx="370" cy="320" r="5" fill="#ff3b3b" filter="url(#glow)"/>
-            <circle class="p2" cx="395" cy="280" r="3.5" fill="#f5c842" filter="url(#glow)"/>
-            <circle class="p3" cx="350" cy="350" r="4" fill="#ff6b35" filter="url(#glow)"/>
-            <circle class="p4" cx="410" cy="310" r="3" fill="#fff0a0" filter="url(#glow)"/>
+          <!-- ======= FLOATING ENERGY PARTICLES ======= -->
+          <!-- Diamonds instead of circles for modern feel -->
+          <g filter="url(#glow)">
+            <polygon class="p1" points="372,315 378,322 372,329 366,322" fill="#ff3b3b" opacity="0.9"/>
+            <polygon class="p2" points="398,278 403,284 398,290 393,284" fill="#f5c842" opacity="0.85"/>
+            <polygon class="p3" points="350,348 356,355 350,362 344,355" fill="#ff6b35" opacity="0.8"/>
+            <polygon class="p4" points="415,305 419,310 415,315 411,310" fill="#fff0a0" opacity="0.75"/>
           </g>
 
-          <!-- GROUND ENERGY RING -->
-          <ellipse cx="240" cy="428" rx="100" ry="10" fill="none" stroke="rgba(255,59,59,0.3)" stroke-width="2" style="animation:glowPulse 2s ease-in-out infinite"/>
-          <ellipse cx="240" cy="428" rx="70" ry="6" fill="none" stroke="rgba(245,200,66,0.2)" stroke-width="1.5" style="animation:glowPulse 2s ease-in-out infinite 0.5s"/>
+          <!-- ======= GROUND ENERGY RINGS ======= -->
+          <ellipse cx="238" cy="436" rx="110" ry="10" fill="none" stroke="rgba(255,59,59,0.35)" stroke-width="1.5" style="animation:glowPulse 2s ease-in-out infinite"/>
+          <ellipse cx="238" cy="436" rx="75" ry="6" fill="none" stroke="rgba(245,200,66,0.25)" stroke-width="1" style="animation:glowPulse 2s ease-in-out infinite 0.5s"/>
+          <!-- Ground corner tick marks -->
+          <line x1="128" y1="436" x2="120" y2="436" stroke="rgba(255,59,59,0.5)" stroke-width="2"/>
+          <line x1="348" y1="436" x2="356" y2="436" stroke="rgba(255,59,59,0.5)" stroke-width="2"/>
 
         </svg>
       </div>
@@ -1547,7 +1603,7 @@
 
     <footer>
       <div class="footer-logo">Tamaraw Marketing Hub</div>
-      <div class="footer-copy">© 2023 Tamaraw Marketing Hub. All rights reserved.</div>
+      <div class="footer-copy">© 2025 Tamaraw Marketing Hub. All rights reserved.</div>
       <div class="footer-links">
         <a href="#" onclick="showPage('home',null)">Home</a>
         <a href="#" onclick="showPage('services',null)">Services</a>
