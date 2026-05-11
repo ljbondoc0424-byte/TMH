@@ -2145,12 +2145,43 @@
     }
 
     // FORM SUBMIT
-    function handleSubmit() {
-      const name = document.getElementById('fname').value.trim();
-      const email = document.getElementById('femail').value.trim();
-      if (!name || !email) {
-        alert('Please fill in your name and email. 🙏');
-        return;
+  function handleSubmit() {
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const business= document.getElementById('fbiz').value.trim();
+  const service = document.getElementById('fservice').value;
+  const message = document.getElementById('fmsg').value.trim();
+
+  if (!name || !email) {
+    alert('Please fill in your name and email. 🙏');
+    return;
+  }
+
+  const btn = document.querySelector('.form-submit');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // ← PASTE YOUR WEB APP URL HERE
+  const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_URL_HERE/exec';
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, phone, business, service, message })
+  })
+  .then(() => {
+    document.getElementById('successMsg').style.display = 'block';
+    btn.textContent = '✓ MESSAGE SENT!';
+    btn.style.background = '#22c55e';
+  })
+  .catch(() => {
+    alert('Something went wrong. Please try again.');
+    btn.textContent = '✦ SEND MESSAGE';
+    btn.disabled = false;
+  });
+}
       }
       document.getElementById('successMsg').style.display = 'block';
       document.querySelector('.form-submit').textContent = '✓ MESSAGE SENT!';
